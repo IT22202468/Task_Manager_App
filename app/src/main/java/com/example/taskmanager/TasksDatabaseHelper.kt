@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper
 class TasksDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION){
 
     companion object{
+
+        //initializing constants
         private const val DATABASE_NAME = "taskManagerApp.db"
         private const val DATABASE_VERSION = 1
         private const val TABLE_NAME = "allTasks"
@@ -27,6 +29,7 @@ class TasksDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         onCreate(db)
     }
 
+    //Create
     fun insertTask(task: Task){
         val db = writableDatabase           //This means db can be modified
         val values= ContentValues().apply { //me class ek ContentValues() help krnw column names thiyena values store krnn
@@ -37,6 +40,7 @@ class TasksDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         db.close()
     }
 
+    //Read
     fun getAllTasks(): List<Task>{
         val taskList =  mutableListOf<Task>()
         val db = readableDatabase
@@ -54,6 +58,34 @@ class TasksDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         cursor.close()
         db.close()
         return taskList
+    }
+
+    //Update
+    fun updateTask(task: Task){
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put(COLUMN_TITLE, task.title)
+            put(COLUMN_CONTENT, task.content)
+        }
+        val whereClause = "$COLUMN_ID = ?"
+        val whereArgs = arrayOf(task.id.toString())
+        db.update(TABLE_NAME, values, whereClause, whereArgs)
+        db.close()
+    }
+
+    fun getTaskByID(taskId: Int): Task {
+        val db = readableDatabase
+        val query = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_ID = $taskId"
+        val cursor = db.rawQuery(query, null)
+        cursor.moveToFirst()
+
+        val id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID))
+        val title = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_TITLE))
+        val content = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_CONTENT))
+
+        cursor.close()
+        db.close()
+        return Task(id, title, content)
     }
 
 }
