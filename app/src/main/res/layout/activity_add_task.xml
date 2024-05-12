@@ -16,7 +16,8 @@
         android:fontFamily="@font/poppins"
         android:text="@string/add_task"
         android:textColor="@color/forest"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:layout_marginStart="20dp"/>
     
     <ImageView
         android:id="@+id/saveBtn"
@@ -25,20 +26,23 @@
         android:src="@drawable/baseline_done_24"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@id/Heading"
-        android:layout_marginEnd="6dp" />
+        android:layout_marginEnd="20dp" />
 
     <EditText
         android:id="@+id/titleEdit"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_below="@id/Heading"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/border_box"
+        android:fontFamily="@font/poppins"
         android:hint="@string/enter_the_title"
+        android:maxWidth="10dp"
+        android:maxLines="1"
         android:padding="12dp"
         android:textSize="20sp"
-        android:layout_below="@id/Heading"
-        android:background="@drawable/border_box"
-        android:layout_marginTop="16dp"
-        android:maxLines="1"
-        android:fontFamily="@font/poppins" />
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
 
     <EditText
         android:id="@+id/contentEdit"
@@ -51,7 +55,9 @@
         android:background="@drawable/border_box"
         android:layout_below="@+id/titleEdit"
         android:layout_marginTop="12dp"
-        android:fontFamily="@font/poppins" />
+        android:fontFamily="@font/poppins"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"/>
 
 
 
