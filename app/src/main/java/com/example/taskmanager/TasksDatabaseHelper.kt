@@ -1,3 +1,5 @@
+//In here we created all the functions and queries
+
 package com.example.taskmanager
 
 import android.content.ContentValues
@@ -86,6 +88,15 @@ class TasksDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE
         cursor.close()
         db.close()
         return Task(id, title, content)
+    }
+
+    //Delete function
+    fun deleteTask(taskId: Int){
+        val db = writableDatabase
+        val whereClause = "$COLUMN_ID = ?"
+        val whereArgs = arrayOf(taskId.toString())
+        db.delete(TABLE_NAME, whereClause, whereArgs)
+        db.close()
     }
 
 }
